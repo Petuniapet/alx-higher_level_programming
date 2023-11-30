@@ -1,9 +1,12 @@
 #!/usr/bin/python3
-from sys import argv
-
-argc = len(argv) - 1
-
-print("{} argument{}:".format(argc, 's' if argc != 1 else ''))
-
-for i, arg in enumerate(argv[1:], 1):
-    print("{}: {}".format(i, arg))
+if __name__ == "__main__":
+    import sys
+    argLen = len(sys.argv)
+    if argLen == 1:
+        print("{} arguments.".format(argLen - 1))
+    elif argLen == 2:
+        print("{} argument:".format(argLen - 1))
+    else:
+        print("{} arguments:".format(argLen - 1))
+    for i in range(1, argLen):
+        print("{}: {}".format(i, sys.argv[i]))

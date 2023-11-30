@@ -2,6 +2,6 @@
 import hidden_4
 
 names = sorted(dir(hidden_4))
-for name in names:
+for name in names
     if not name.startswith("__"):
         print(name)
