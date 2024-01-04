@@ -1,66 +1,60 @@
 #!/usr/bin/python3
+
+"""Define a class Rectangle."""
+
+
 class Rectangle:
-    count = 0  # Class variable to keep track of the number of instances
+    """Represent a rectangle."""
 
-    def __init__(self, width=0, height=0):
-        self.__width = width
-        self.__height = height
-        Rectangle.count += 1
+    def __init__(self, size=0, position=(0, 0)):
+        """Initialize a new rectangle.
 
-    @property
-    def width(self):
-        return self.__width
-
-    @width.setter
-    def width(self, value):
-        if not isinstance(value, int):
-            raise TypeError("width must be an integer")
-        elif value < 0:
-            raise ValueError("width must be >= 0")
-        else:
-            self.__width = value
+        Args:
+            size (int): The size of the new rectangle.
+            position (int, int): The position of the new rectangle.
+        """
+        self.size = size
+        self.position = position
 
     @property
-    def height(self):
-        return self.__height
+    def size(self):
+        """Get/set the current size of the rectangle."""
+        return (self.__size)
 
-    @height.setter
-    def height(self, value):
+    @size.setter
+    def size(self, value):
         if not isinstance(value, int):
-            raise TypeError("height must be an integer")
+            raise TypeError("size must be an integer")
         elif value < 0:
-            raise ValueError("height must be >= 0")
-        else:
-            self.__height = value
+            raise ValueError("size must be >= 0")
+        self.__size = value
+
+    @property
+    def position(self):
+        """Get/set the current position of the rectangle."""
+        return (self.__position)
+
+    @position.setter
+    def position(self, value):
+        if (not isinstance(value, tuple) or
+                len(value) != 2 or
+                not all(isinstance(num, int) for num in value) or
+                not all(num >= 0 for num in value)):
+            raise TypeError("position must be a tuple of 2 positive integers")
+        self.__position = value
 
     def area(self):
-        return self.__width * self.__height
+        """Return the current area of the rectangle."""
+        return (self.__size * self.__size)
 
-    def perimeter(self):
-        return 2 * (self.__width + self.__height)
+    def my_print(self):
+        """Print the rectangle with the # character."""
+        if self.__size == 0:
+            print("")
+            return
 
-    def __str__(self):
-        if self.__width == 0 or self.__height == 0:
-            return ""
-        return '\n'.join(['#' * self.__width for _ in range(self.__height)])
-
-    def __repr__(self):
-        return 'Rectangle({}, {})'.format(self.__width, self.__height)
-
-    def __eq__(self, other):
-        if not isinstance(other, Rectangle):
-            return False
-        return self.__width == other.width and self.__height == other.height
-
-    def __ne__(self, other):
-        return not self.__eq__(other)
-
-    def __del__(self):
-        Rectangle.count -= 1
-        print("Bye rectangle...")
-
-# Example usage:
-# r1 = Rectangle(3, 4)
-# r2 = Rectangle(5, 6)
-# print(Rectangle.count)  # Output: 2
-
+        [print("") for i in range(0, self.__position[1])]
+        for i in range(0, self.__size):
+            [print(" ", end="") for j in range(0, self.__position[0])]
+            [print("#", end="") for k in range(0, self.__size)]
+            print("")
